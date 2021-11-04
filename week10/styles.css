@@ -1,0 +1,38 @@
+body {
+    background-color: #22333b;
+}
+
+h1, h2, p {
+    color: #D8CBC7;
+}
+
+p {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+#turn_red {
+    color: red;
+}
+
+.flexboxouter {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flexboxouter div {
+    flex: 1;
+    padding: 20px;
+    margin: 20px;
+    background-color: #49575a;
+    border-radius: 1em;
+    align-self: center;
+    max-width: 100%;
+}
+
+a, a:visited, a:active {
+    color: #D1FAFF;
+}
