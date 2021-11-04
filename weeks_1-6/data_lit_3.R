@@ -1,7 +1,7 @@
 library(tidyverse)
 library(lubridate)
 
-setwd("~/School/Syracuse/Sr Sem 1/JNL 221")
+setwd("C:/Users/cdawg/git_repos/jnl221/weeks_1-6")
 
 ##### Electric Vehicle Data #####
 # https://catalog.data.gov/dataset/nyserda-electric-vehicle-drive-clean-rebate-data-beginning-2017
@@ -266,3 +266,18 @@ test %>%
 
 ggsave("onondaga_trips.jpg", device = "jpg")
   
+##### Cleaning for sheets #####
+
+ev_ny_clean %>% 
+  lapply(is.na) -> list_na
+
+table(list_na[4])
+table(list_na[7])
+table(list_na[10])
+
+ev_ny_clean %>% 
+  filter(!is.na(.[4]) &
+         !is.na(.[7]) &
+         !is.na(.[10])) -> ev_no_na
+
+write.csv(ev_no_na, file = "ev_rebate_clean.csv")
