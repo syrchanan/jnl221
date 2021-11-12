@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<title>The box model - padding, borders, margins</title>
+</head>
+<body>
+
+	<p id="bodygraf">Unless you change it with CSS, the body element will have a default margin on all sides of 8px.</p>
+
+	<div id="first">
+		<h3>#first</h3>
+		<p>By default, content division elements (divs) have no padding, margin or border. So they extend horizontally as wide as possible but tightly wrap vertically around whatever's inside, like a glove.</p>
+		<p>But: Heading and paragraph elements have top and bottom margins by default to create vertical distance. They will repel HTML elements above and below until we make changes to the div itself using CSS, like adding some border or padding to the top or bottom.</p>
+		<p>Try adding a border or top/bottom padding to this div and see what happens.</p>
+		<p>Also, if you're curious about the box model we're messing with here, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Model/Introduction_to_the_CSS_box_model" target="_blank">this is an overview</a>.</p>
+	</div>
+
+	<div id="second">
+		<h3>#second</h3>
+		<p>Try some different padding settings on this div.</p>
+	</div>
+
+	<div id="third">
+		<h3>#third</h3>
+		<p>We're primarily concerned right now with vertical layouts — just getting our content to stack nicely on desktop and mobile screens.</p>
+		<p>Setting a <strong>max-width</strong> is helpful for this. It helps keep text, images and data visualizations from taking up the entire width of a large desktop/laptop screen. You provide a maximum width that the element, like a <strong>div</strong>, can't exceed. But it can get narrower!</p>
+		<p>In the CSS file, give this one a <strong>max-width</strong> of <em>700px</em>.</p>
+	</div>
+
+	<div id="fourth">
+		<h3>#fourth</h3>
+		<p>How can we get this <strong>div</strong> get horizontally centered?</p>
+		<p>Use the same <strong>max-width</strong> attribute as the <strong>div</strong> above, but set the left and right margins to "<em>auto</em>", which means they're calculated automatically based on the width of the browser window.</p>
+		<p>This allows the <strong>div</strong> to hang out in the middle. As the screen gets narrower, the margins will eventually shrink away to nothing and it'll take up the full width.</p>
+		<p>(This is similar to how your recipe text was centered on the webpage in an earlier in-class activity, if you go back to peek at the CSS).</p>
+	</div>
+
+	<div id="fifth">
+		<h3>#fifth</h3>
+		<p>We can also have the <strong>div</strong> hang out on the far right. Use the same properties as the one above, except set the <strong>margin-left</strong> to "<em>auto</em>" and the <strong>margin-right</strong> to <em>0</em>.</p>
+		<p>If you're wondering how we can start to stack elements horizontally as well as vertically — we're going to get there. Just not today.</p>
+	</div>
+
+	<div id="mygraphic">
+		<h3>#mygraphic</h3>
+		<p>We can also put our embed code (<strong>iframe</strong>) from Datawrapper inside a <strong>div</strong> to have more control over how to looks in comparison to the rest of our webpage.</p>
+		<p>This is copy/pasted from Datawrapper with "responsive iframe" selected. The <strong>background-color</strong> for this specific <strong>div</strong> has been changed to <em>white</em> to override the orange, which would wash out the color palette!</p>
+
+		<iframe title="Median household income (JNL 221.3)" aria-label="Map" id="datawrapper-chart-QPzVR" src="https://datawrapper.dwcdn.net/QPzVR/3/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="607"></iframe><script type="text/javascript">!function(){"use strict";window.addEventListener("message",(function(e){if(void 0!==e.data["datawrapper-height"]){var t=document.querySelectorAll("iframe");for(var a in e.data["datawrapper-height"])for(var r=0;r<t.length;r++){if(t[r].contentWindow===e.source)t[r].style.height=e.data["datawrapper-height"][a]+"px"}}}))}();</script>
+
+	</div>
+
+</body>
+</html>

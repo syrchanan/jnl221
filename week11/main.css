@@ -1,0 +1,80 @@
+body {
+	background: lightgray;
+	font-family: Arial, sans-serif;
+}
+
+a {
+	color: darkblue;
+	font-weight: bold;
+}
+
+/*All of our divs are going to be orange today, OK?*/
+div {
+	background-color: orange;
+}
+
+#bodygraf {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	font-size: 12px;
+}
+
+#first {
+	padding: 10px 25px 10px 25px;
+	margin-top: 8px;
+}
+
+#second {
+	text-align: center;
+	margin-top: 20px;
+	margin-bottom: 25px;
+	padding-top: 300px;
+	padding-right: 600px;
+	padding-left: 10px;
+	padding-bottom: 100px;
+	border-width: 1px;
+	border-color: black;
+	border-style: solid;
+	max-width: 100%;
+}
+
+/* For padding and border, this is a shorthand way of doing the same thing as above.*/
+/*#second {
+	text-align: center;
+	margin-top: 20px;
+	padding: 100px 100px 100px 100px;
+	border: 1px solid black;
+} */
+
+/*Note the padding and border shorthand for the next three selectors.*/
+#third {
+	margin-top: 20px;
+	padding: 10px 15px 10px 15px;
+	border: 1px solid black;
+	max-width: 700px;
+}
+
+#fourth {
+	margin-top: 20px;
+	padding: 10px 15px 10px 15px;
+	border: 1px solid black;
+	max-width: 700px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#fifth {
+	margin-top: 20px;
+	padding: 10px 15px 10px 15px;
+	border: 1px solid black;
+	max-width: 700px;
+	margin-left: auto;
+	margin-right: 0px;
+}
+
+#mygraphic {
+	background-color: white;
+	margin-top: 20px;
+	padding: 10px 15px 10px 15px;
+	max-width: 700px;
+}
