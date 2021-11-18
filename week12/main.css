@@ -1,0 +1,135 @@
+/*We need to select the page body, eliminate the left and right
+margins and give the whole page a background color of #F9F9F9*/
+
+/*Within the body element, the whole article is wrapped in a div.
+For contrast, give it a background color of white. The widest
+it can be is 930 pixels. Add some padding on the left and right, then
+a 1-pixel border of #DFDFDF*/ 
+
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Antique&display=swap');
+
+body {
+    margin-left: 0;
+    margin-right: 0;
+    background-color: #F9F9F9;
+}
+
+.article {
+    margin: auto;
+    background-color: white;
+    max-width: 930px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border: 1px solid #DFDFDF ;
+}
+
+/*---------STORY TOP-----------*/
+
+/*Let's have the story top div be narrower: a max width of 800 pixels.
+Use margins to have it right justified, and set the font to Tahoma.*/
+
+/*The headline should have a size of 35 pixels and a smaller than
+default margin on the bottom (try something like 15 pixels).*/
+
+/*Our story has a timestamp – make the text smaller (12px) and have the
+text be gray (#767676) instead of black.*/
+
+/*We're going to do a simplified byline: bigger than the timestamp at
+14 pixels, make it bold and give it a color of #5076b8*/
+
+.story_top {
+    max-width: 800px;
+    font-family: Tahoma, sans-serif;
+    margin-right: 0;
+    margin-left: auto;
+}
+
+h1 {
+    font-size: 35px;
+    margin-bottom: 15px;
+    font-family: 'Shippori Antique', sans-serif;
+}
+
+.timestamp {
+    font-size: 12px;
+    color: #767676;
+}
+
+.byline {
+    font-size: 14px;
+    color: #5076b8;
+}
+
+/*---------LEAD IMAGE-----------*/
+
+/*We want this div holding our photo and caption to have the same max
+width, margins and alignment as the story top above. This should 
+be a copy/paste job for style properties.*/
+
+/*If we don't set our image's width to 100%, it'll overrun the div and
+look massive.*/
+
+/*Caption should be the same color and size as the timestamp above.
+Instead of Tahoma as the font, use Arial. Also: give it a small
+margin at the top, or else it will be way below the image.
+Caption will be even narrower: 700 pixels max. Finally: adjust the
+"line-height" to 20 pixels, which will add some space between the
+lines of text.*/
+
+.lead_image {
+    max-width: 800px;
+    font-family: Tahoma, Geneva, Verdana, sans-serif;
+    margin-right: 0;
+    margin-left: auto;
+}
+
+img {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.caption {
+    font-size: 12px;
+    color: #767676;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 0;
+    max-width: 700px;
+    line-height: 20px;
+}
+
+/*---------STORY TEXT-----------*/
+
+/*We're going to use a nice serif Georgia font here that's 18 pixels.
+Again, we're going to use the same max width, as the divs above.
+Adjust the line height here so that the story copy doesn't seem too
+crowded together.*/
+
+/*Like our caption, the paragraphs within the story text div are going to
+have a max width of 700 pixels. (How can you select only paragraph elements
+within this div?)*/
+
+/*Whew, we're finally to the subheads for this piece. Make them the same
+font as the story top and 22 pixels in size. They should also have
+the same max width as the story paragraphs*/
+
+.story_text {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 18px;
+    max-width: 800px;
+    line-height: 30px;
+    padding: 15px;
+}
+
+.story_text p {
+    max-width: 700px;
+}
+
+a:visited, a:link {
+    color: #0044CC;
+}
+
+h2 {
+    font-family: Tahoma, sans-serif;
+    font-size: 22px;
+    max-width: 800px;
+}

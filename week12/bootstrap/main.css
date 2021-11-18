@@ -1,0 +1,29 @@
+/*I'm having to override Bootstrap's CSS here
+with '!important', because it doesn't want to 
+set the background to light gray.*/
+body {
+	background-color: lightgray!important;
+}
+
+#header {
+	background-color: #03256C;
+	color: white;
+	text-align: center;
+	padding: 15px 0px 15px 0px;
+}
+
+#header p {
+	font-size: 12px;
+}
+
+/*If you're curious, this is a way to select
+every class where the name begins with "col"*/
+[class^="col"] {
+	padding: 15px 0px 15px 0px;
+	background-color: #06bee1;
+	outline: 1px solid white;
+}
+
+.caption {
+	margin-top: 10px;
+}
