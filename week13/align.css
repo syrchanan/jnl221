@@ -1,0 +1,13 @@
+#headline {
+	text-align: center;
+	font-weight: bold;
+}
+
+.container {
+	border-left: 1px dotted black;
+	border-right: 1px dotted black;
+}
+
+.row {
+	padding: 8px 0px 8px 0px;
+}

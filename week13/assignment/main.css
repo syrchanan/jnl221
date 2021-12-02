@@ -1,0 +1,66 @@
+#assign_header {
+	background-color: darkblue;
+	color: white;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	margin-bottom: 18px;
+}
+
+#assign_header h4 {
+	margin-bottom: 0px;
+}
+
+.caption {
+	font-size: 14px;
+	color: gray;
+	margin-top: 8px;
+}
+
+/*Feel free to add to this file, but leave the
+stuff above alone.*/
+
+/* [class^="col"] {
+	border: 1px solid black;
+} */
+
+a:link, a:visited {
+	color: white;
+}
+
+/* added an id to the body because the DOM will let me over-write the bootstrap css if I use a more specific selector */
+
+#bootstrap_override h1 {
+	font-family: 'Times New Roman', Times, serif;
+	font-size: 45px;
+}
+
+#bootstrap_override h2 {
+	font-family: 'Times New Roman', Times, serif;
+	font-size: 26px;
+}
+
+#bootstrap_override h3 {
+	font-family: 'Times New Roman', Times, serif;
+	font-size: 20px;
+	margin-top: 10px;
+}
+
+#bootstrap_override {
+	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+	font-size: 18px;
+}
+
+/* I made the fonts for the head and deck serif, while the body is sans, since I think the visual separation helps to lay out the page much better */
+
+#recommended hr {
+	margin: 30px auto;
+}
+
+
+@media only screen and (max-width: 991px) {
+	#recommended h3 {
+		margin-bottom: 30px;
+	}
+}
+
+/* added space to the bottom of h3 so that when they stack then there is more spacing than usual for visual separation when the size is below the large breakpoint (looked it up for query) */
