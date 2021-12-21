@@ -20,20 +20,20 @@ rebates <- read_csv("NYSERDA_Electric_Vehicle_Drive_Clean_Rebate_Data__Beginning
 # clean up the data ####
 
 rebates %>% 
-  select(-`Data through Date`) %>% 
-  mutate_all(tolower) %>% 
+  select(-`Data through Date`) %>% #drop col
+  mutate_all(tolower) %>% #ease of use lower case
   rename_all(tolower) %>% 
-  rename("submit_date" = 1,
+  rename("submit_date" = 1, #better col names
          "ev_type" = 6,
          "trans_type" = 7,
          "year_ghg_redux_mtco2e" = 8,
          "year_petrol_redux_gallons" = 9,
          "rebate_usd" = 10) %>% 
-  mutate(submit_date = mdy(submit_date)) %>% 
-  drop_na() %>% 
-  mutate(month = month(submit_date),
+  mutate(submit_date = mdy(submit_date)) %>%  #convert to date format
+  drop_na() %>% #drop na
+  mutate(month = month(submit_date), #extract month/year
          year  = year(submit_date)) %>%
-  select(-submit_date) -> clean_rebate
+  select(-submit_date) -> clean_rebate #save as obj
 
 
 # association rules mining ####
@@ -42,18 +42,18 @@ rebates %>%
 # I know there are other factors in determining rebates, such as public policy, but it may be a starting point for a story
 
 clean_rebate %>% 
-  mutate(across(.fns = as.factor)) %>% as("transactions") -> trans_rebate
+  mutate(across(.fns = as.factor)) %>% as("transactions") -> trans_rebate #need transaction matrix format
 
-inspect(apriori(clean_rebate, parameter = list(supp = 0.1, conf = 0.8)))
+inspect(apriori(clean_rebate, parameter = list(supp = 0.1, conf = 0.8))) #rules generation algorithm
 
-rules <- apriori(clean_rebate, 
+rules <- apriori(clean_rebate, #add more parameters for cleaner rules and regenerate them
                  parameter=list(supp=0.1, conf = 0.8, minlen=3), 
                  appearance = list(default="lhs",rhs="rebate_usd=2000"),
                  control = list(verbose=F))
 
-rules<-sort(rules, decreasing=TRUE,by='lift')
+rules<-sort(rules, decreasing=TRUE,by='lift') #sort by correlation
 
-top_ten <- inspect(rules[c(1:10)])
+top_ten <- inspect(rules[c(1:10)]) #ave top 10 rules
 
 top_ten
 
@@ -68,8 +68,8 @@ top_ten
 
 url <- "https://www.irs.gov/businesses/irc-30d-new-qualified-plug-in-electric-drive-motor-vehicle-credit"
 
-fed <- read_html(url) %>% html_nodes(".table") %>% html_table()
-tesla_fed <- fed[[32]]
+fed <- read_html(url) %>% html_nodes(".table") %>% html_table() #scrape their site for the numbers
+tesla_fed <- fed[[32]] #save table
 
 # FROM IRS site: "Taxpayers may claim the full amount of the credit up the end of the first quarter after the quarter in which the manufacturer records its sale of the 200,000th qualified vehicle. For the second and third calendar quarters, taxpayers may claim 50% of the credit. For the fourth and fifth calendar quarters, taxpayers may claim 25% of the credit. No credit is allowed after the fifth quarter. Section 4.07 of Notice 2009-89 provides that a vehicle is not “acquired” before the date on which title passes under state law."
 
@@ -77,10 +77,12 @@ tesla_fed <- fed[[32]]
 
 #Phasing out the Tesla rebates after 1/1/2020 might disincentivize people from buying them, let's see how before and after date splits matters...
 
+#clean up data from table scraping
 tesla_fed$`Qualifying Vehicle` = str_replace_all(string = tesla_fed$`Qualifying Vehicle`, pattern = "[0-9]", replacement = "")
 tesla_fed$`Qualifying Vehicle` = str_replace_all(string = tesla_fed$`Qualifying Vehicle`, pattern = "-", replacement = "")
 tesla_fed$`Qualifying Vehicle` = gsub(x = tesla_fed$`Qualifying Vehicle`, pattern = "\\s+", replacement = " ")
 
+#build nice table visualization of data, may want to use it in the story
 tesla_fed %>% 
   clean_names() %>%
   gt() %>% 
@@ -141,6 +143,8 @@ tesla_fed %>%
 
 # Association Rules for Before and After 1/1/2020 ####
 
+#These steps are all duplicated from the first run through, with the exception of the filtering for the date split
+
 ## Before 1/1/2020 ####
 
 clean_rebate %>%
@@ -190,23 +194,23 @@ top_ten_post
 # Checking counts of purchases/lease ####
 
 clean_rebate %>% 
-  mutate(fed_rebate = case_when(
+  mutate(fed_rebate = case_when( #set ratio fo full tax credit for each purchase
     year < 2019 ~ 1,
     year == 2019 & month <= 6 ~ 0.5,
     year == 2019 & month >= 7 ~ 0.25,
     year >= 2020 ~ 0
   )) %>%
-  filter(make == "tesla") %>% 
-  group_by(fed_rebate, month, year) %>% 
-  summarise(count = n()) %>% 
-  mutate(date = paste0(month, "-", year),
+  filter(make == "tesla") %>% #select tesla only
+  group_by(fed_rebate, month, year) %>% #group by for aggregation
+  summarise(count = n()) %>% #aggregation
+  mutate(date = paste0(month, "-", year), #parse date format
          date = my(date)) %>% 
   ungroup() %>% 
-  select(-c(month, year)) -> total_teslas_bought
+  select(-c(month, year)) -> total_teslas_bought #save out as obj
 
-write_csv(total_teslas_bought, "total_teslas_bought.csv")
+write_csv(total_teslas_bought, "total_teslas_bought.csv") #write to csv for import to datawrapper
 
-ggplot(total_teslas_bought) +
+ggplot(total_teslas_bought) + #plot the data here in R for quick visualization for personal validation
   geom_line(aes(date, count, color = fed_rebate)) + 
   theme_minimal()
 
@@ -216,14 +220,14 @@ ggplot(total_teslas_bought) +
 # Checking how total rebate over time is considered for teslas ####
 
 clean_rebate %>% 
-  mutate(rebate_usd = as.numeric(rebate_usd),
+  mutate(rebate_usd = as.numeric(rebate_usd), #reformat data
          rebate_usd = case_when(
-    year < 2019 ~ rebate_usd + 7500,
+    year < 2019 ~ rebate_usd + 7500, #add appropriate tax credit to every rebate
     year == 2019 & month <= 6 ~ rebate_usd + 3750,
     year == 2019 & month >= 7 ~ rebate_usd + 1875,
     year >= 2020 ~ rebate_usd
   )) %>%
-  filter(make == "tesla") %>% 
+  filter(make == "tesla") %>% #same process as before (continued below)
   group_by(month, year) %>% 
   summarise(sum = sum(rebate_usd)) %>% 
   mutate(date = paste0(month, "-", year),
@@ -235,3 +239,5 @@ clean_rebate %>%
   ggplot(data = read_csv("total_rebate_tesla.csv")) +
   geom_bar(aes(date, sum), stat = "identity") + 
   theme_minimal()
+
+  
